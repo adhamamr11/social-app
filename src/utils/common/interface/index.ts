@@ -1,0 +1,53 @@
+import { ObjectId } from "mongoose";
+import { GENDER, REACTION, ROLE, USER_AGENT } from "../enum";
+
+export interface IUser{
+    firstName:string;
+    lastName:string;
+    fullName?:string;
+    email :string;
+    password?:string;
+    phoneNumber?:string;
+    gender?:GENDER;
+    role?:ROLE;
+    userAgent?:USER_AGENT;
+    otp?:string;
+    otpExpiryAt?:Date;
+    credentialUpdatedAt?:Date;
+    isVerified?:boolean;
+}
+
+export interface IUser{
+    _id : ObjectId
+}
+
+export interface IReaction{
+    userId : ObjectId,
+    reaction : REACTION
+}
+
+export interface IPOST{
+    userId:ObjectId,
+    content :string,
+    reactions: IReaction[],
+    attachments? : IAttachment[]
+}
+
+export interface IAttachment{
+    url : string,
+    id: string
+}
+
+
+declare module "express" {
+    interface Request {
+        user : IUser
+    }
+}
+
+declare module "jsonwebtoken" {
+    interface JwtPayload{
+        _id : ObjectId,
+        role : ROLE
+    }
+}
