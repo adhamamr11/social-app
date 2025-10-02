@@ -1,21 +1,7 @@
 import { Schema } from "mongoose";
 import { IPOST, IReaction } from "../../../utils/common/interface";
 import { REACTION } from "../../../utils/common/enum";
-
-
-const reactionSchema = new Schema<IReaction>({
-
-    userId :{
-        type : Schema.Types.ObjectId,
-    ref : "User",
-    required : true
-    },
-    reaction : {
-        type : Number,
-        enum : REACTION,
-        default : REACTION.like
-    }
-},{timestamps:true});
+import { reactionSchema } from "../common/react.schema";
 
 
 export const postSchema = new Schema<IPOST>({
@@ -30,4 +16,10 @@ content : {
     trim : true
 },
 reactions : [reactionSchema],
-},{timestamps :true});
+},{timestamps :true,toJSON : {virtuals : true},toObject:{virtuals:true}});
+
+postSchema.virtual("comments",{
+    foreignField:"postId",
+    localField : "_id",
+    ref : "Comment", 
+})

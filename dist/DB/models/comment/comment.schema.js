@@ -1,23 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postSchema = void 0;
+exports.commentSchema = void 0;
 const mongoose_1 = require("mongoose");
 const react_schema_1 = require("../common/react.schema");
-exports.postSchema = new mongoose_1.Schema({
+exports.commentSchema = new mongoose_1.Schema({
     userId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "User",
         required: true
     },
+    postId: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "Post",
+        required: true
+    },
+    parentIds: [{
+            type: mongoose_1.Schema.Types.ObjectId,
+            ref: "Comment",
+        }],
     content: {
         type: String,
-        required: true,
         trim: true
     },
     reactions: [react_schema_1.reactionSchema],
-}, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
-exports.postSchema.virtual("comments", {
-    foreignField: "postId",
-    localField: "_id",
-    ref: "Comment",
-});
+}, { timestamps: true });
