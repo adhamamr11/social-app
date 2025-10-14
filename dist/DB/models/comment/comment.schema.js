@@ -14,13 +14,28 @@ exports.commentSchema = new mongoose_1.Schema({
         ref: "Post",
         required: true
     },
-    parentIds: [{
-            type: mongoose_1.Schema.Types.ObjectId,
-            ref: "Comment",
-        }],
+    parentId: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "Comment",
+    },
     content: {
         type: String,
         trim: true
     },
     reactions: [react_schema_1.reactionSchema],
-}, { timestamps: true });
+}, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
+exports.commentSchema.virtual("replies", {
+    localField: "_id",
+    foreignField: "parentId",
+    ref: "Comment"
+});
+exports.commentSchema.pre("deleteOne", async function (next) {
+    const filter = this.getFilter();
+    const replies = await this.model.find({ parentId: filter._id });
+    if (replies.length) {
+        for (const reply of replies) {
+            await this.model.deleteOne({ _id: reply._id });
+        }
+    }
+    next();
+});

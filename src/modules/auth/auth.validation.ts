@@ -1,6 +1,6 @@
 import {z} from "zod";
 import { GENDER } from "../../utils/common/enum";
-import { LoginDTO, RegisterDTO, VerifyAccDTO } from "./auth.dto";
+import { ConfirmEmailDTO, LoginDTO, RegisterDTO, updateEmailDTO, VerifyAccDTO } from "./auth.dto";
 
 export const registerShcema = z.object<RegisterDTO>({
     fullName : z.string().min(3).max(30) as unknown as string,
@@ -11,7 +11,7 @@ export const registerShcema = z.object<RegisterDTO>({
 });
 
 
-export const VerifyAccShcema = z.object<VerifyAccDTO>({
+export const VerifyAccShcema = z.object<VerifyAccDTO | ConfirmEmailDTO>({
     email : z.email() as unknown as string,
     otp : z.string().length(6) as unknown as string
 })
@@ -20,4 +20,9 @@ export const VerifyAccShcema = z.object<VerifyAccDTO>({
 export const LoginSchema = z.object<LoginDTO>({
     email : z.email() as unknown as string,
     password : z.string().min(6).max(30) as unknown as string,
+})
+
+
+export const updateEmailSchema = z.object<updateEmailDTO>({
+    email : z.email() as unknown as string,
 })

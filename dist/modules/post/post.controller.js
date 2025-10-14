@@ -13,5 +13,6 @@ const postRouter = (0, express_1.Router)();
 postRouter.post("/", (0, validation_middleware_1.isValid)(post_validation_1.createPostSchema), (0, auth_middleware_1.IsAuthenticated)(), post_service_1.default.create);
 postRouter.patch("/:id", (0, auth_middleware_1.IsAuthenticated)(), post_service_1.default.addReaction);
 postRouter.get("/:id", (0, auth_middleware_1.IsAuthenticated)(), post_service_1.default.getSpecific);
+postRouter.delete("/:id", (0, auth_middleware_1.IsAuthenticated)(), post_service_1.default.deletePost);
 postRouter.use("/:postId/comment", comment_controller_1.default);
 exports.default = postRouter;

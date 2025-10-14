@@ -18,11 +18,15 @@ export abstract class AbstractRepo<T>{
         return await this.model.findOne(filter,projection,options)
     }
 
-    async update(filter:RootFilterQuery<T>,update: UpdateQuery<Partial<T>>,options?:MongooseUpdateQueryOptions){
+    async update(filter:RootFilterQuery<T>,update: UpdateQuery<Partial<T>>,options?: MongooseUpdateQueryOptions<T>){
         return await this.model.updateOne(filter,update,options)
     }
 
     async delete(filter:RootFilterQuery<T>,options?:MongooseBaseQueryOptions){
         return await this.model.deleteOne(filter,options)
+    }
+
+    async findAndUpdate(filter:RootFilterQuery<T>,update: UpdateQuery<Partial<T>>,options?: QueryOptions<T>) {
+        return await this.model.findOneAndUpdate (filter,update,options);        
     }
 }

@@ -23,5 +23,8 @@ class AbstractRepo {
     async delete(filter, options) {
         return await this.model.deleteOne(filter, options);
     }
+    async findAndUpdate(filter, update, options) {
+        return await this.model.findOneAndUpdate(filter, update, options);
+    }
 }
 exports.AbstractRepo = AbstractRepo;

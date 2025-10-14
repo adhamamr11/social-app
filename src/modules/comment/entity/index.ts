@@ -5,7 +5,7 @@ export class Comment{
     userId : ObjectId;
         postId : ObjectId;
         content : string;
-        parentIds : ObjectId[];
+        parentId : ObjectId;
         reactions : IReaction[];
         attachments ?: IAttachment[]
 }

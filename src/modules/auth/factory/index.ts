@@ -1,11 +1,11 @@
 import { RegisterDTO } from "../auth.dto";
 import { GENDER, ROLE, USER_AGENT } from "../../../utils/common/enum";
-import { UserEntity } from "../entity";
+import { AuthEntity } from "../entity";
 import { generateExpiryTime, generateOTP } from "../../../utils/otp";
 import { hashPassword } from "../../../utils/hash";
 
  export class AuthFactory{
-    private user = new UserEntity();
+    private user = new AuthEntity();
 
     async register(registerDTO : RegisterDTO){
         this.user.fullName = registerDTO.fullName !;

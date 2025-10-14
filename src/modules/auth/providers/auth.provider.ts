@@ -1,18 +1,14 @@
-import { UserRepo } from "../../../DB/models/user/user.repo";
-import { BadRequestException, NotFoundException } from "../../../utils/error";
-import { VerifyAccDTO } from "../auth.dto";
+
+import { IUser } from "../../../utils/common/interface";
+import { BadRequestException } from "../../../utils/error";
+import { UpdatePassDTO, VerifyAccDTO } from "../auth.dto";
 
 export const AuthProvider = {
 
-   async checkOTP(verifyAccDTO : VerifyAccDTO){
-        const userRepo = new UserRepo();
+    checkOTP(DTO : VerifyAccDTO | UpdatePassDTO ,user : IUser){
 
-        const userExist = await userRepo.exist({email : verifyAccDTO.email});
+        if(DTO.otp != user.otp) throw new BadRequestException("Invalid otp");
 
-        if(!userExist) throw new NotFoundException("User Not Found");
-
-        if(verifyAccDTO.otp != userExist.otp) throw new BadRequestException("Invalid otp");
-
-        if(userExist.otpExpiryAt! < new Date()) throw new BadRequestException("otp expired");
+        if(user.otpExpiryAt! < new Date()) throw new BadRequestException("otp expired");
     }
 }

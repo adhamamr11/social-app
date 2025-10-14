@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserEntity = void 0;
-class UserEntity {
+exports.AuthEntity = void 0;
+class AuthEntity {
     firstName;
     lastName;
     fullName;
@@ -16,4 +16,4 @@ class UserEntity {
     credentialUpdatedAt;
     isVerified;
 }
-exports.UserEntity = UserEntity;
+exports.AuthEntity = AuthEntity;

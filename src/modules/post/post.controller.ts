@@ -14,6 +14,8 @@ postRouter.patch("/:id",IsAuthenticated(),postService.addReaction);
 
 postRouter.get("/:id",IsAuthenticated(),postService.getSpecific);
 
+postRouter.delete("/:id",IsAuthenticated(),postService.deletePost)
+
 postRouter.use("/:postId/comment",commentRouter);
 
 export default postRouter;

@@ -22,6 +22,7 @@ exports.userschema = new mongoose_1.Schema({
     otpExpiryAt: { type: Date },
     credentialUpdatedAt: { type: Date },
     isVerified: { type: Boolean, default: false },
+    twoStepVrification: { type: Boolean, default: false }
 }, {
     timestamps: true,
     toJSON: { virtuals: true },
@@ -29,7 +30,8 @@ exports.userschema = new mongoose_1.Schema({
 });
 exports.userschema.virtual("fullName").get(function () {
     return this.firstName + " " + this.lastName;
-}).set(function (value) {
+});
+exports.userschema.virtual("fullName").set(function (value) {
     const [firstName, lastName] = value.split(" ");
     this.firstName = firstName;
     this.lastName = lastName;

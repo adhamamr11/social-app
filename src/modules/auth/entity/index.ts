@@ -1,7 +1,7 @@
 import { GENDER,ROLE,USER_AGENT } from "../../../utils/common/enum";
 
 
-export class UserEntity{
+export class AuthEntity{
 
 public firstName !:string;
 public lastName !:string;

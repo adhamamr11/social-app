@@ -6,7 +6,7 @@ const entity_1 = require("../entity");
 const otp_1 = require("../../../utils/otp");
 const hash_1 = require("../../../utils/hash");
 class AuthFactory {
-    user = new entity_1.UserEntity();
+    user = new entity_1.AuthEntity();
     async register(registerDTO) {
         this.user.fullName = registerDTO.fullName;
         this.user.email = registerDTO.email;

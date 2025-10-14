@@ -6,5 +6,6 @@ class PostEntity {
     content;
     reactions;
     attachments;
+    mentions;
 }
 exports.PostEntity = PostEntity;

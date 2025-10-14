@@ -15,6 +15,7 @@ export interface IUser{
     otpExpiryAt?:Date;
     credentialUpdatedAt?:Date;
     isVerified?:boolean;
+    twoStepVrification ?: false;
 }
 
 export interface IUser{
@@ -31,7 +32,8 @@ export interface IPOST{
     userId:ObjectId,
     content :string,
     reactions: IReaction[],
-    attachments? : IAttachment[]
+    attachments? : IAttachment[],
+    mentions? : ObjectId[]
 }
 
 export interface IAttachment{
@@ -44,7 +46,7 @@ export interface IComment{
     userId : ObjectId,
     postId : ObjectId,
     content : string,
-    parentIds : ObjectId[],
+    parentId : ObjectId,
     reactions : IReaction[],
     attachments ?: IAttachment[]
 }

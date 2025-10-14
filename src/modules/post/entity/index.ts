@@ -5,5 +5,6 @@ export class PostEntity{
     userId:ObjectId;
         content :string;
         reactions: IReaction[];
-        attachments? : IAttachment[]
+        attachments? : IAttachment[];
+        mentions?: ObjectId[]
 }

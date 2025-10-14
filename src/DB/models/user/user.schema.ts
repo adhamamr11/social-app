@@ -20,6 +20,7 @@ otp:{type:String},
 otpExpiryAt:{type:Date},
 credentialUpdatedAt:{type:Date},
 isVerified:{type:Boolean,default : false},
+twoStepVrification : {type : Boolean,default:false}
 },{
     timestamps:true,
     toJSON:{virtuals:true},
@@ -28,7 +29,10 @@ isVerified:{type:Boolean,default : false},
 
 userschema.virtual("fullName").get(function(){
     return this.firstName+" "+this.lastName;
-}).set(function(value){
+});
+
+userschema.virtual("fullName").set(function(value){
+
     const [firstName,lastName] = value.split(" ");
     this.firstName = firstName;
     this.lastName = lastName;
