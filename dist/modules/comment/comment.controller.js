@@ -13,4 +13,5 @@ commentRouter.post("{/:id}", (0, auth_middleware_1.IsAuthenticated)(), (0, valid
 commentRouter.get("/:id", (0, auth_middleware_1.IsAuthenticated)(), comment_service_1.default.getSpecific);
 commentRouter.delete("/:id", (0, auth_middleware_1.IsAuthenticated)(), comment_service_1.default.deleteComment);
 commentRouter.patch("/:id", (0, auth_middleware_1.IsAuthenticated)(), comment_service_1.default.addReaction);
+commentRouter.patch("/:id/update", (0, auth_middleware_1.IsAuthenticated)(), comment_service_1.default.updateComment);
 exports.default = commentRouter;

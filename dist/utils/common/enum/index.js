@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.REACTION = exports.USER_AGENT = exports.ROLE = exports.GENDER = void 0;
+exports.STATUS = exports.REACTION = exports.USER_AGENT = exports.ROLE = exports.GENDER = void 0;
 var GENDER;
 (function (GENDER) {
     GENDER[GENDER["MALE"] = 0] = "MALE";
@@ -26,3 +26,9 @@ var REACTION;
     REACTION[REACTION["sad"] = 4] = "sad";
     REACTION[REACTION["angry"] = 5] = "angry";
 })(REACTION || (exports.REACTION = REACTION = {}));
+var STATUS;
+(function (STATUS) {
+    STATUS[STATUS["PENDING"] = 0] = "PENDING";
+    STATUS[STATUS["ACCEPTED"] = 1] = "ACCEPTED";
+    STATUS[STATUS["REJECTED"] = 2] = "REJECTED";
+})(STATUS || (exports.STATUS = STATUS = {}));

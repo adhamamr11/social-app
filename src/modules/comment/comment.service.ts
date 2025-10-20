@@ -59,7 +59,7 @@ class CommentService{
         req.user._id.toString() != (commentExist.postId as unknown as IPOST).userId.toString())
          throw new UnauthorizedException("You are not authorized to delet this comment");
 
-        await this.commentRepo.delete({_id : id});
+        await this.commentRepo.update({_id : id},{deletedAt : Date.now()});
 
         return res.status(200).json({message : "Comment deleted successfully",success :true});
     }
@@ -68,9 +68,25 @@ class CommentService{
             const {id} = req.params;
             const {reaction} = req.body;
     
-            await reactionProvider(this.commentRepo,id,req.user._id,reaction);
+            await reactionProvider(this.commentRepo,id,req.user._id,reaction,req.user);
             
             return res.sendStatus(204);
+        }
+
+        public updateComment = async (req :Request,res :Response) => {
+
+        const {id} = req.params;
+        const {content} = req.body;
+        const commentExist = await this.commentRepo.exist({_id :id});
+        if(!commentExist) throw new NotFoundException("comment not found");
+
+        if(req.user._id.toString() != commentExist.userId.toString())
+             throw new UnauthorizedException("You are not authorized to delete this comment");
+
+        await this.commentRepo.update({_id : id},{content});
+
+        return res.status(200).json({success :true,message :"comment deleted successfully"});
+            
         }
 
 }

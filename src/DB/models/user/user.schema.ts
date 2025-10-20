@@ -20,7 +20,8 @@ otp:{type:String},
 otpExpiryAt:{type:Date},
 credentialUpdatedAt:{type:Date},
 isVerified:{type:Boolean,default : false},
-twoStepVrification : {type : Boolean,default:false}
+twoStepVrification : {type : Boolean,default:false},
+blocks : [{type : Schema.ObjectId,ref:"User"}]
 },{
     timestamps:true,
     toJSON:{virtuals:true},

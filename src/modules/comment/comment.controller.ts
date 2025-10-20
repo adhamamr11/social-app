@@ -14,4 +14,6 @@ commentRouter.delete("/:id",IsAuthenticated(),commentService.deleteComment);
 
 commentRouter.patch("/:id",IsAuthenticated(),commentService.addReaction);
 
+commentRouter.patch("/:id/update",IsAuthenticated(),commentService.updateComment);
+
 export default commentRouter;

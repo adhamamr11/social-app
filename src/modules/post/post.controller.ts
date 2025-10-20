@@ -3,7 +3,6 @@ import { IsAuthenticated } from "../../middleware/auth.middleware";
 import postService from "./post.service";
 import { isValid } from "../../middleware/validation.middleware";
 import { createPostSchema } from "./post.validation";
-import commentService from "../comment/comment.service";
 import commentRouter from "../comment/comment.controller";
 
 const postRouter = Router();
@@ -17,5 +16,7 @@ postRouter.get("/:id",IsAuthenticated(),postService.getSpecific);
 postRouter.delete("/:id",IsAuthenticated(),postService.deletePost)
 
 postRouter.use("/:postId/comment",commentRouter);
+
+postRouter.patch("/:id/update",IsAuthenticated(),postService.updatePost)
 
 export default postRouter;

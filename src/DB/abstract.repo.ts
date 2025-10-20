@@ -18,6 +18,10 @@ export abstract class AbstractRepo<T>{
         return await this.model.findOne(filter,projection,options)
     }
 
+    async findAll(filter:RootFilterQuery<T>,projection?: ProjectionType<T>,options?:QueryOptions){
+        return await this.model.find(filter,projection,options)
+    }
+
     async update(filter:RootFilterQuery<T>,update: UpdateQuery<Partial<T>>,options?: MongooseUpdateQueryOptions<T>){
         return await this.model.updateOne(filter,update,options)
     }

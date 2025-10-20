@@ -16,7 +16,7 @@ class PostService {
     addReaction = async (req, res) => {
         const { id } = req.params;
         const { reaction } = req.body;
-        await (0, rect_provider_1.reactionProvider)(this.postRepo, id, req.user._id, reaction);
+        await (0, rect_provider_1.reactionProvider)(this.postRepo, id, req.user._id, reaction, req.user);
         return res.sendStatus(204);
     };
     getSpecific = async (req, res) => {
@@ -35,8 +35,19 @@ class PostService {
             throw new error_1.NotFoundException("Post not found");
         if (req.user._id.toString() != postExist.userId.toString())
             throw new error_1.UnauthorizedException("You are not authorized to delete this post");
-        await this.postRepo.delete({ _id: id });
+        await this.postRepo.update({ _id: id }, { deletedAt: new Date() });
         return res.status(200).json({ success: true, message: "Post deleted successfully" });
+    };
+    updatePost = async (req, res) => {
+        const { id } = req.params;
+        const { content } = req.body;
+        const postExist = await this.postRepo.exist({ _id: id });
+        if (!postExist)
+            throw new error_1.NotFoundException("Post not found");
+        if (req.user._id.toString() != postExist.userId.toString())
+            throw new error_1.UnauthorizedException("You are not authorized to edit on this post");
+        await this.postRepo.update({ _id: id }, { content });
+        return res.status(200).json({ success: true, message: "Post updated successfully" });
     };
 }
 exports.default = new PostService();

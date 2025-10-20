@@ -1,5 +1,5 @@
 import { ObjectId } from "mongoose";
-import { GENDER, REACTION, ROLE, USER_AGENT } from "../enum";
+import { GENDER, REACTION, ROLE, STATUS, USER_AGENT } from "../enum";
 
 export interface IUser{
     firstName:string;
@@ -16,6 +16,7 @@ export interface IUser{
     credentialUpdatedAt?:Date;
     isVerified?:boolean;
     twoStepVrification ?: false;
+    blocks ?: ObjectId[]
 }
 
 export interface IUser{
@@ -33,7 +34,8 @@ export interface IPOST{
     content :string,
     reactions: IReaction[],
     attachments? : IAttachment[],
-    mentions? : ObjectId[]
+    mentions? : ObjectId[],
+    deletedAt ?:Date
 }
 
 export interface IAttachment{
@@ -48,7 +50,14 @@ export interface IComment{
     content : string,
     parentId : ObjectId,
     reactions : IReaction[],
-    attachments ?: IAttachment[]
+    attachments ?: IAttachment[],
+    deletedAt ?: Date
+}
+
+export interface IfriendShip{
+    requestTo : ObjectId,
+    requestFrom : ObjectId,
+    status : STATUS
 }
 
 

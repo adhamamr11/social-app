@@ -19,7 +19,7 @@ export class PostFactory{
         
         let validMentionUsers :String[] = [];
 
-        if(createPostDTO.mentions.length){
+        if(createPostDTO.mentions?.length){
            
             for(const userId of  createPostDTO.mentions){
                const userExist = await repo.find({_id : userId});

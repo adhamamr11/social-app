@@ -1,6 +1,5 @@
 import { Schema } from "mongoose";
-import { IPOST, IReaction } from "../../../utils/common/interface";
-import { REACTION } from "../../../utils/common/enum";
+import { IPOST } from "../../../utils/common/interface";
 import { reactionSchema } from "../common/react.schema";
 import { Comment } from "../comment/comment.model";
 
@@ -22,7 +21,8 @@ mentions :[
         type: Schema.Types.ObjectId,
         ref : "User"
     }
-]
+],
+deletedAt : {type: Date}
 },{timestamps :true,toJSON : {virtuals : true},toObject:{virtuals:true}});
 
 postSchema.virtual("comments",{
@@ -32,6 +32,14 @@ postSchema.virtual("comments",{
 });
 
 postSchema.pre("deleteOne",async function (next) {
+
+    const filter = this.getFilter();
+
+    await Comment.deleteMany({postId : filter._id});
+    next();
+})
+
+postSchema.pre("deleteMany",async function (next) {
 
     const filter = this.getFilter();
 

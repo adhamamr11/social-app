@@ -21,7 +21,8 @@ exports.postSchema = new mongoose_1.Schema({
             type: mongoose_1.Schema.Types.ObjectId,
             ref: "User"
         }
-    ]
+    ],
+    deletedAt: { type: Date }
 }, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
 exports.postSchema.virtual("comments", {
     foreignField: "postId",
@@ -29,6 +30,11 @@ exports.postSchema.virtual("comments", {
     ref: "Comment",
 });
 exports.postSchema.pre("deleteOne", async function (next) {
+    const filter = this.getFilter();
+    await comment_model_1.Comment.deleteMany({ postId: filter._id });
+    next();
+});
+exports.postSchema.pre("deleteMany", async function (next) {
     const filter = this.getFilter();
     await comment_model_1.Comment.deleteMany({ postId: filter._id });
     next();

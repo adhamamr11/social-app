@@ -1,3 +1,5 @@
+import { ObjectId } from "mongoose";
+import { STATUS } from "../../utils/common/enum";
 
 export interface UpdateInfoDTO {
     firstName?:string;
@@ -5,3 +7,7 @@ export interface UpdateInfoDTO {
     phoneNumber?:string;
 }
 
+export interface ResponseToFriendRequestDTO{
+    requestId : ObjectId;
+    response : STATUS;
+}

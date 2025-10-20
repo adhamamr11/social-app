@@ -17,6 +17,9 @@ class AbstractRepo {
     async find(filter, projection, options) {
         return await this.model.findOne(filter, projection, options);
     }
+    async findAll(filter, projection, options) {
+        return await this.model.find(filter, projection, options);
+    }
     async update(filter, update, options) {
         return await this.model.updateOne(filter, update, options);
     }

@@ -13,6 +13,8 @@ const IsAuthenticated = () => {
         const user = await userRepo.exist({ _id: payload._id });
         if (!user)
             throw new error_1.UnauthorizedException("User not found");
+        if (user.credentialUpdatedAt > new Date())
+            throw new error_1.BadRequestException("token expired");
         req.user = user;
         next();
     };

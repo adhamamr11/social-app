@@ -13,7 +13,7 @@ class PostFactory {
             post.content = createPostDTO.content,
             post.reactions = [];
         let validMentionUsers = [];
-        if (createPostDTO.mentions.length) {
+        if (createPostDTO.mentions?.length) {
             for (const userId of createPostDTO.mentions) {
                 const userExist = await repo.find({ _id: userId });
                 if (!userExist)

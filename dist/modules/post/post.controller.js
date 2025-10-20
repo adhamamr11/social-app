@@ -15,4 +15,5 @@ postRouter.patch("/:id", (0, auth_middleware_1.IsAuthenticated)(), post_service_
 postRouter.get("/:id", (0, auth_middleware_1.IsAuthenticated)(), post_service_1.default.getSpecific);
 postRouter.delete("/:id", (0, auth_middleware_1.IsAuthenticated)(), post_service_1.default.deletePost);
 postRouter.use("/:postId/comment", comment_controller_1.default);
+postRouter.patch("/:id/update", (0, auth_middleware_1.IsAuthenticated)(), post_service_1.default.updatePost);
 exports.default = postRouter;

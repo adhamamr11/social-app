@@ -23,6 +23,7 @@ exports.commentSchema = new mongoose_1.Schema({
         trim: true
     },
     reactions: [react_schema_1.reactionSchema],
+    deletedAt: { type: Date }
 }, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
 exports.commentSchema.virtual("replies", {
     localField: "_id",

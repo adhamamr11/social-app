@@ -24,6 +24,7 @@ export const commentSchema = new Schema<IComment>({
         trim : true
     },
     reactions : [reactionSchema],
+    deletedAt : {type : Date}
 },{timestamps : true,toJSON : {virtuals :true},toObject : {virtuals : true}})
 
 
