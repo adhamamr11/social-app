@@ -11,6 +11,7 @@ const dev_env_1 = require("./config/env/dev.env");
 const node_schedule_1 = __importDefault(require("node-schedule"));
 const post_model_1 = require("./DB/models/post/post.model");
 const comment_model_1 = require("./DB/models/comment/comment.model");
+const socket_io_1 = require("./socket.io");
 node_schedule_1.default.scheduleJob("2 10 18 * * *", async () => {
     await post_model_1.Post.deleteOne({ deletedAt: { $lte: Date.now() - 60 * 1000
         } });
@@ -22,5 +23,6 @@ node_schedule_1.default.scheduleJob("2 10 18 * * *", async () => {
 const app = (0, express_1.default)();
 const port = dev_env_1.devConfig.PORT;
 (0, app_controller_1.bootStrap)(app, express_1.default);
-app.listen(port, () => (0, node_console_1.log)(`Server running on port ${port}`));
+const server = app.listen(port, () => (0, node_console_1.log)(`Server running on port ${port}`));
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+(0, socket_io_1.initSocket)(server);

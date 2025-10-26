@@ -12,7 +12,7 @@ export const IsAuthenticated = ()=>{
         
         const userRepo = new UserRepo();
 
-        const user = await userRepo.exist({_id : payload._id}) ;
+        const user = await userRepo.exist({_id : payload._id},{},{populate: [{path : "friends",select : "firstName lastName fullName"}]}); ;
 
         if(!user) throw new UnauthorizedException("User not found");
 

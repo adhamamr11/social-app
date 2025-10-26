@@ -9,13 +9,17 @@ const auth_controller_1 = require("./modules/auth/auth.controller");
 const post_controller_1 = __importDefault(require("./modules/post/post.controller"));
 const comment_controller_1 = __importDefault(require("./modules/comment/comment.controller"));
 const user_controller_1 = __importDefault(require("./modules/user/user.controller"));
+const cors_1 = __importDefault(require("cors"));
+const chat_controller_1 = __importDefault(require("./modules/chat/chat.controller"));
 function bootStrap(app, express) {
     app.use(express.json());
     (0, connection_1.connectToDB)();
+    app.use((0, cors_1.default)({ origin: "*" }));
     app.use("/auth", auth_controller_1.authRouter);
     app.use("/post", post_controller_1.default);
     app.use("/comment", comment_controller_1.default);
     app.use("/user", user_controller_1.default);
+    app.use("/chat", chat_controller_1.default);
     app.use("/{*dummy}", (req, res, next) => {
         return res.status(404).json({ message: "Not Found", success: false });
     });

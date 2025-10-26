@@ -16,7 +16,8 @@ export interface IUser{
     credentialUpdatedAt?:Date;
     isVerified?:boolean;
     twoStepVrification ?: false;
-    blocks ?: ObjectId[]
+    blocks ?: ObjectId[],
+    friends ?: ObjectId[]
 }
 
 export interface IUser{
@@ -58,6 +59,18 @@ export interface IfriendShip{
     requestTo : ObjectId,
     requestFrom : ObjectId,
     status : STATUS
+}
+
+export interface IMessage{
+    content : string,
+    sender : ObjectId,
+    attachments ?: IAttachment[],
+    reactions ?: IReaction[]
+}
+
+export interface IChat{
+    users : ObjectId[],
+    messages : ObjectId[]
 }
 
 

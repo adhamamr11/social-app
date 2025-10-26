@@ -9,6 +9,9 @@ class UserService {
     userRepo = new user_repo_1.UserRepo();
     userFactory = new factory_1.UserFactory();
     friendShipRepo = new friendship_repo_1.FriendShipRepo();
+    getProfile = async (req, res) => {
+        return res.status(200).json({ message: " Done", success: true, data: { user: req.user } });
+    };
     updateInfo = async (req, res) => {
         const updateInfoDTO = req.body;
         const result = this.userFactory.updateInfo(updateInfoDTO, req.user);

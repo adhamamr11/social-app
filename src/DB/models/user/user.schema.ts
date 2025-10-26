@@ -21,7 +21,8 @@ otpExpiryAt:{type:Date},
 credentialUpdatedAt:{type:Date},
 isVerified:{type:Boolean,default : false},
 twoStepVrification : {type : Boolean,default:false},
-blocks : [{type : Schema.ObjectId,ref:"User"}]
+blocks : [{type : Schema.ObjectId,ref:"User"}],
+friends : [{type : Schema.ObjectId,ref:"User"}]
 },{
     timestamps:true,
     toJSON:{virtuals:true},

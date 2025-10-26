@@ -23,7 +23,8 @@ exports.userschema = new mongoose_1.Schema({
     credentialUpdatedAt: { type: Date },
     isVerified: { type: Boolean, default: false },
     twoStepVrification: { type: Boolean, default: false },
-    blocks: [{ type: mongoose_1.Schema.ObjectId, ref: "User" }]
+    blocks: [{ type: mongoose_1.Schema.ObjectId, ref: "User" }],
+    friends: [{ type: mongoose_1.Schema.ObjectId, ref: "User" }]
 }, {
     timestamps: true,
     toJSON: { virtuals: true },

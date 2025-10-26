@@ -13,6 +13,14 @@ class UserService {
     private readonly userFactory = new UserFactory();
     private readonly friendShipRepo = new FriendShipRepo();
 
+
+    getProfile = async (req:Request,res:Response) => {
+
+        return res.status(200).json({message :" Done",success : true, data : {user : req.user}});
+        
+    }
+
+
     updateInfo = async (req: Request, res: Response) => {
 
         const updateInfoDTO: UpdateInfoDTO = req.body;
@@ -84,6 +92,8 @@ class UserService {
 
         return res.status(200).json({ success: true, message :"user blocked successfully " });
     }
+
+    
 }
 
 

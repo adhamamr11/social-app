@@ -9,6 +9,9 @@ import { updateInfoSchema } from "./user.validation";
 
 const userRouter = Router();
 
+
+userRouter.get("/profile",IsAuthenticated(),userService.getProfile);
+
 userRouter.put("/update-info",IsAuthenticated(),isValid(updateInfoSchema),userService.updateInfo);
 
 userRouter.post("/friend-ship-request",IsAuthenticated(),userService.friendShipRequest);

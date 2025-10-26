@@ -5,15 +5,22 @@ import { AppError } from "./utils/error";
 import postRouter from "./modules/post/post.controller";
 import commentRouter from "./modules/comment/comment.controller";
 import userRouter from "./modules/user/user.controller";
+import cors from "cors";
+import { IsAuthenticated } from "./middleware/auth.middleware";
+import userService from "./modules/user/user.service";
+import chatRouter from "./modules/chat/chat.controller";
 export function bootStrap(app :Express,express : any) {
     app.use(express.json());
 
     connectToDB();
 
+    app.use(cors({origin :"*"}));
+
     app.use("/auth",authRouter);
     app.use("/post",postRouter);
     app.use("/comment",commentRouter);
-    app.use("/user",userRouter)
+    app.use("/user",userRouter);
+    app.use("/chat",chatRouter)
 
     app.use("/{*dummy}",(req: Request,res : Response,next : NextFunction)=>{
         return res.status(404).json({message:"Not Found",success:false});
