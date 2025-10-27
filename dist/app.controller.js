@@ -10,7 +10,9 @@ const post_controller_1 = __importDefault(require("./modules/post/post.controlle
 const comment_controller_1 = __importDefault(require("./modules/comment/comment.controller"));
 const user_controller_1 = __importDefault(require("./modules/user/user.controller"));
 const cors_1 = __importDefault(require("cors"));
+const express_1 = require("graphql-http/lib/use/express");
 const chat_controller_1 = __importDefault(require("./modules/chat/chat.controller"));
+const app_schema_1 = require("./app.schema");
 function bootStrap(app, express) {
     app.use(express.json());
     (0, connection_1.connectToDB)();
@@ -20,6 +22,20 @@ function bootStrap(app, express) {
     app.use("/comment", comment_controller_1.default);
     app.use("/user", user_controller_1.default);
     app.use("/chat", chat_controller_1.default);
+    app.use("/graphql", (0, express_1.createHandler)({ schema: app_schema_1.appSchema,
+        formatError: (error) => {
+            return {
+                message: error.message,
+                success: false,
+                path: error.path,
+                detials: error.originalError
+            };
+        }, context: (req) => {
+            const accessToken = req.headers["authorization"];
+            return {
+                accessToken
+            };
+        } }));
     app.use("/{*dummy}", (req, res, next) => {
         return res.status(404).json({ message: "Not Found", success: false });
     });
